@@ -1,0 +1,15 @@
+{
+  "name": "trello_API",
+  "version": "1.0.0",
+  "description": "API Application for Trello Copywork",
+  "main": "index.js",
+  "author": "Benjamin Kinga",
+  "license": "MIT",
+  "devDependencies": {
+    "@prisma/cli": "2.1.3"
+  },
+  "dependencies": {
+    "@prisma/client": "2.1.3",
+    "graphql-yoga": "^1.18.3"
+  }
+}
