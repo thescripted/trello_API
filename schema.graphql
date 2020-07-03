@@ -1,9 +1,0 @@
-type Query {
-    info: String!
-    getAllLists: [List!]!
-}
-
-type List {
-    id: Int!
-    title: String!
-}
