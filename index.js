@@ -9,7 +9,7 @@ type Query {
 }
 
 type Mutation {
-    addList(title: String): List!
+    addList(list_id: Int, title: String): List!
     updateList(id: Int, title: String): List!
     deleteList(id: Int): Boolean!
     dangerouslyDeleteTable: String!
@@ -19,20 +19,19 @@ type Mutation {
 }
 
 type List {
-    createdAt: String!
-    id: ID!
+    createdat: String!
+    list_id: ID!
     title: String!
     card: [Card!]
 }
 
 type Card {
     content: String!
-    createdAt: String!
+    createdat: String!
     id: ID!
     listId: Int!
     list: List!
 }
-
 `
 
 const resolvers = {
@@ -48,6 +47,7 @@ const resolvers = {
       try {
         const data = await context.prisma.list.create({
           data: {
+            list_id: args.list_id,
             title: args.title
           }
         })
