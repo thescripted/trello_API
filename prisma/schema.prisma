@@ -7,17 +7,19 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
-model Card {
-  content   String?
-  createdAt DateTime @default(now())
-  id        Int      @default(autoincrement()) @id
-  listId    Int
-  list      List     @relation(fields: [listId], references: [id])
+model card {
+  card_id   Int       @id @default(autoincrement())
+  content   String
+  createdat DateTime  @default(now())
+  list_id   Int?
+  updatedat DateTime?
+  list      list?     @relation(fields: [list_id], references: [list_id])
 }
 
-model List {
-  createdAt DateTime @default(now())
-  id        Int      @default(autoincrement()) @id
-  title     String
-  card      Card[]
+model list {
+  createdat DateTime  @default(now())
+  list_id   Int       @id @default(autoincrement())
+  title     String    
+  updatedat DateTime?
+  card      card[]
 }

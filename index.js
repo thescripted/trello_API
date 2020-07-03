@@ -9,25 +9,28 @@ type Query {
 }
 
 type Mutation {
-    addList(id: Int, title: String): List!
+    addList(title: String): List!
     updateList(id: Int, title: String): List!
     deleteList(id: Int): Boolean!
     dangerouslyDeleteTable: String!
-    addCardToList(listId: Int, cardTitle: String):
-    updateCardInList(cardId: Int, listId: Int, cardTitle: String):
-    deleteCardInList(cardId: Int, listId: Int):
+    addCardToList(listId: Int, cardTitle: String): Int!
+    updateCardInList(cardId: Int, listId: Int, cardTitle: String): Int!
+    deleteCardInList(cardId: Int, listId: Int): Int!
 }
 
 type List {
-    createdAt: Int!
+    createdAt: String!
     id: ID!
     title: String!
+    card: [Card!]
 }
 
 type Card {
+    content: String!
+    createdAt: String!
     id: ID!
-    title: String!
     listId: Int!
+    list: List!
 }
 
 `
@@ -37,9 +40,6 @@ const resolvers = {
     info: () => `This is an example of a resolver`,
     getAllLists: async (parent, args, context, info) => {
       const data = await context.prisma.list.findMany()
-      data.map(item => {
-        delete item.createdAt // TODO: Change CreatedAt to appropriate Timestamp.
-      })
       return data
     }
   },
@@ -48,7 +48,6 @@ const resolvers = {
       try {
         const data = await context.prisma.list.create({
           data: {
-            id: args.id,
             title: args.title
           }
         })
