@@ -1,5 +1,5 @@
 {
-  "name": "trello_API",
+  "name": "trello_api",
   "version": "1.0.0",
   "description": "API Application for Trello Copywork",
   "main": "index.js",

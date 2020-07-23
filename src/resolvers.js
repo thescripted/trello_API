@@ -10,7 +10,6 @@ const Query = {
         }
       }
     })
-    // Add some more console queries
     return data
   }
 }
@@ -28,7 +27,7 @@ const Mutation = {
   updateList: async (parent, args, context, info) => {
     const data = await context.prisma.list.update({
       where: {
-        id: args.id
+        list_id: args.id
       },
       data: {
         title: args.title
@@ -39,15 +38,15 @@ const Mutation = {
   deleteList: async (parent, args, context, info) => {
     await context.prisma.list.delete({
       where: {
-        id: args.id
+        list_id: args.id
       }
     })
-    return 'Deleted'
+    return "List Deleted!"
   },
   dangerouslyDeleteTable: async (parent, args, context, info) => {
     try {
       await context.prisma.list.deleteMany()
-      console.log('Deleted!')
+      console.log("Deleted!")
     } catch (err) {
       return err
     }
@@ -69,6 +68,31 @@ const Mutation = {
     })
     console.log(created)
     return created
+  },
+  updateCardInList: async (parent, args, context, info) => {
+    const Card = await context.prisma.card.update({
+      where: {
+        card_id_list_id: {
+          card_id: args.card_id,
+          list_id: args.list_id
+        }
+      },
+      data: {
+        content: args.content
+      }
+    })
+    return Card
+  },
+  deleteCardFromList: async (parent, args, context, info) => {
+    const Card = await context.prisma.card.delete({
+      where: {
+        card_id_list_id: {
+          card_id: args.card_id,
+          list_id: args.list_id
+        }
+      }
+    })
+    return "Card is Deleted!"
   }
 }
 

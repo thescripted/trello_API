@@ -8,14 +8,12 @@ datasource db {
 }
 
 model card {
-  card_id   Int
+  card_id   Int       @id
   content   String
   createdat DateTime  @default(now())
-  list_id   Int
+  list_id   Int?
   updatedat DateTime?
-  list      list      @relation(fields: [list_id], references: [list_id])
-
-  @@id([card_id, list_id])
+  list      list?      @relation(fields: [list_id], references: [list_id])
 }
 
 model list {

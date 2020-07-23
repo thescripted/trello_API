@@ -9,8 +9,8 @@ type Mutation {
   deleteList(id: Int): String!
   dangerouslyDeleteTable: String!
   addCardToList(card_id: Int, list_id: Int!, content: String): Card!
-  updateCardInList(cardId: Int, listId: Int, cardTitle: String): Card!
-  deleteCardInList(cardId: Int, listId: Int): String!
+  updateCardInList(card_id: Int, list_id: Int, content: String): Card!
+  deleteCardFromList(card_id: Int, list_id: Int): String!
 }
 
 type List {
