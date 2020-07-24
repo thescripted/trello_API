@@ -5,11 +5,11 @@ type Query {
 }
 
 type Mutation {
-    addList(list_id: Int, title: String): List!
+    addList(title: String): List!
     updateList(id: Int, title: String): List!
     deleteList(id: Int): String!
     dangerouslyDeleteTable: String!
-    addCardToList(card_id: Int, list_id: Int!, content: String): Card!
+    addCardToList(list_id: Int!, content: String): Card!
     updateCardInList(cardId: Int, listId: Int, cardTitle: String): Card!
     deleteCardInList(cardId: Int, listId: Int): String!
 }

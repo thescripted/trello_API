@@ -18,7 +18,6 @@ const Mutation = {
   addList: async (parent, args, context, info) => {
     const data = await context.prisma.list.create({
       data: {
-        list_id: args.list_id,
         title: args.title
       }
     })
