@@ -1,4 +1,4 @@
-var PrismaClient = require('@prisma/client').PrismaClient
+  var PrismaClient = require('@prisma/client').PrismaClient
 var GraphQLServer = require('graphql-yoga').GraphQLServer
 var resolvers = require('./src/resolvers')
 

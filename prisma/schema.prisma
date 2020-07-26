@@ -8,7 +8,7 @@ datasource db {
 }
 
 model card {
-  card_id   Int       @id
+  card_id   Int       @default(autoincrement()) @id
   content   String
   createdat DateTime  @default(now())
   list_id   Int?
@@ -18,7 +18,7 @@ model card {
 
 model list {
   createdat DateTime  @default(now())
-  list_id   Int       @id
+  list_id   Int       @default(autoincrement()) @id
   title     String
   updatedat DateTime?
   card      card[]

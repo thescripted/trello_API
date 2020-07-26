@@ -16,7 +16,8 @@ type Mutation {
 
 type List {
     createdat: String!
-    list_id: ID!
+    updatedat: String!
+    list_id: ID!    
     title: String!
     card: [Card!]
 }
