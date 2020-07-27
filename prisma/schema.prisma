@@ -8,18 +8,20 @@ datasource db {
 }
 
 model card {
-  card_id   Int       @default(autoincrement()) @id
-  content   String
-  createdat DateTime  @default(now())
-  list_id   Int?
-  updatedat DateTime?
-  list      list?      @relation(fields: [list_id], references: [list_id])
+  card_id     Int       @default(autoincrement()) @id
+  content     String
+  createdat   DateTime  @default(now())
+  list_id     Int?
+  ordernumber Int
+  updatedat   DateTime?
+  list        list?      @relation(fields: [list_id], references: [list_id])
 }
 
 model list {
-  createdat DateTime  @default(now())
-  list_id   Int       @default(autoincrement()) @id
-  title     String
-  updatedat DateTime?
-  card      card[]
+  createdat   DateTime  @default(now())
+  list_id     Int       @default(autoincrement()) @id
+  ordernumber Int
+  title       String
+  updatedat   DateTime?
+  card        card[]
 }

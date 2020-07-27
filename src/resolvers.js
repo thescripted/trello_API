@@ -1,3 +1,6 @@
+const CARD_ORDER = 0
+const LIST_ORDER = 0
+
 const Query = {
   info: () => `This is an example of a resolver`,
   getListsAndCardsData: async (parent, args, { prisma }, info) => {
@@ -16,9 +19,12 @@ const Query = {
 
 const Mutation = {
   addList: async (parent, args, context, info) => {
+    const count = await context.prisma.list.count()
+    console.log(count)
     const data = await context.prisma.list.create({
       data: {
-        title: args.title
+        title: args.title,
+        ordernumber: count + 1
       }
     })
     return data
@@ -54,10 +60,12 @@ const Mutation = {
     const List = await context.prisma.list.findOne({
       where: { list_id: args.list_id }
     })
+    const cardcount = await context.prisma.card.count()
     const created = await context.prisma.card.create({
       data: {
         card_id: args.card_id,
         content: args.content,
+        count: cardcount,
         list: {
           connect: {
             list_id: args.list_id

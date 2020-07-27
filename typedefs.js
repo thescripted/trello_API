@@ -20,6 +20,7 @@ type List {
     list_id: ID!    
     title: String!
     card: [Card!]
+    ordernumber: Int!
 }
 
 type Card {
@@ -29,6 +30,7 @@ type Card {
     card_id: ID!
     list_id: Int!
     list: List!
+    ordernumber: Int!
 }
 `
 
