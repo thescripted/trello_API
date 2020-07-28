@@ -1,5 +1,4 @@
-const CARD_ORDER = 0
-const LIST_ORDER = 0
+var { updateListOrderByDeletedList } = require("./support")
 
 const Query = {
   info: () => `This is an example of a resolver`,
@@ -20,7 +19,6 @@ const Query = {
 const Mutation = {
   addList: async (parent, args, context, info) => {
     const count = await context.prisma.list.count()
-    console.log(count)
     const data = await context.prisma.list.create({
       data: {
         title: args.title,
@@ -41,17 +39,19 @@ const Mutation = {
     return data
   },
   deleteList: async (parent, args, context, info) => {
-    await context.prisma.list.delete({
+    const deleted = await context.prisma.list.delete({
       where: {
         list_id: args.id
       }
     })
-    return "List Deleted!"
+    const deletedOrderNumber = deleted.ordernumber
+    updateListOrderByDeletedList(deletedOrderNumber)
+    return `List ID:${deleted.list_id} has been Deleted!`
   },
   dangerouslyDeleteTable: async (parent, args, context, info) => {
     try {
       await context.prisma.list.deleteMany()
-      console.log("Deleted!")
+      return "Deleted!"
     } catch (err) {
       return err
     }

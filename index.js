@@ -1,10 +1,8 @@
-var PrismaClient = require("@prisma/client").PrismaClient
 var GraphQLServer = require("graphql-yoga").GraphQLServer
 var resolvers = require("./src/resolvers")
+var { prisma, initialize_constants } = require("./src/support")
 
-// To Talk to the database
-const prisma = new PrismaClient()
-
+initialize_constants()
 //GraphQL Constructor
 const server = new GraphQLServer({
   typeDefs: "./src/schema.graphql",
