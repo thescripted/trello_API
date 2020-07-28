@@ -1,8 +1,8 @@
 var GraphQLServer = require("graphql-yoga").GraphQLServer
 var resolvers = require("./src/resolvers")
-var { prisma, initialize_constants } = require("./src/support")
+var { prisma, getCurrentConstants } = require("./src/updater")
 
-initialize_constants()
+getCurrentConstants() // Initializes current card & list counts
 //GraphQL Constructor
 const server = new GraphQLServer({
   typeDefs: "./src/schema.graphql",
