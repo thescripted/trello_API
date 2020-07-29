@@ -1,8 +1,9 @@
 var GraphQLServer = require("graphql-yoga").GraphQLServer
 var resolvers = require("./src/resolvers")
-var { prisma, getCurrentConstants } = require("./src/updater")
+var { getCurrentConstants } = require("./src/updater")
+var { prisma } = require("./src/updater") //  prisma client probably shouldn't be here. Oh well.
 
-getCurrentConstants() // Initializes current card & list counts
+getCurrentConstants() // Initixxxzalizes current card & list counts
 //GraphQL Constructor
 const server = new GraphQLServer({
   typeDefs: "./src/schema.graphql",
@@ -32,3 +33,7 @@ main()
   .finally(async () => {
     await prisma.disconnect()
   })
+
+module.exports = {
+  prisma
+}

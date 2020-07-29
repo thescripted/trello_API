@@ -1,10 +1,10 @@
 var {
   updateListOrderAfterDeleted,
   updateCardOrderAfterDeleted,
-  updateCardOrderAfterDeleted,
   updateListOrderAfterSwap,
   updateCardOrderAfterSwap,
-  getCurrentConstants
+  getCurrentConstants,
+  getCountFromListID
 } = require("./updater")
 
 const Query = {
@@ -25,7 +25,7 @@ const Query = {
 
 const Mutation = {
   addList: async (parent, args, context, info) => {
-    const { LIST_NUMBER_OF_ITEMS } = await getCurrentConstants()
+    const LIST_NUMBER_OF_ITEMS = await getCurrentConstants()
     const data = await context.prisma.list.create({
       data: {
         title: args.title,
@@ -52,19 +52,17 @@ const Mutation = {
       }
     })
     updateListOrderAfterDeleted(List)
-    return `List ID:${deleted.list_id} has been Deleted!`
+    return `List ID:${List.list_id} has been Deleted!`
   },
 
   addCardToList: async (parent, args, context, info) => {
-    const List = await context.prisma.list.findOne({
-      where: { list_id: args.list_id }
-    })
-    const cardcount = await context.prisma.card.count() // TODO: Update this.
+    const CARD_IN_LIST = await getCountFromListID(args.list_id)
+
     const created = await context.prisma.card.create({
       data: {
         card_id: args.card_id,
         content: args.content,
-        count: cardcount, // Update This.
+        ordernumber: CARD_IN_LIST + 1,
         list: {
           connect: {
             list_id: args.list_id
